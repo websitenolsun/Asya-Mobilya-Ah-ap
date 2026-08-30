@@ -23,7 +23,7 @@ export function Seo({ title, description, canonical, path, type = 'website', rob
   const schemas = jsonLd.length ? jsonLd : (inferredSchema ? [inferredSchema] : []);
   useEffect(() => {
     const origin = SITE_ORIGIN;
-    document.title = `${title} — Ahşap Atelier`;
+    document.title = `${title} — Asya Mobilya Ahşap`;
     const setMeta = (name: string, content: string, property = false) => {
       const attr = property ? 'property' : 'name';
       let tag = document.head.querySelector(`meta[${attr}="${name}"]`);
@@ -82,7 +82,7 @@ export function SiteHeader() {
     <div className="container-wide flex h-[76px] items-center justify-between">
       <Link href="/" className="focus-ring flex items-center gap-3" onClick={() => setOpen(false)} data-testid="link-logo">
         <span className="flex h-9 w-9 items-center justify-center rounded-full border border-primary text-lg display text-primary">A</span>
-        <span><strong className="block text-[15px] leading-none tracking-[.02em]">AHŞAP</strong><small className="mt-1 block text-[9px] uppercase tracking-[.28em] text-muted-foreground">Atelier</small></span>
+        <span><strong className="block text-[15px] leading-none tracking-[.02em]">ASYA</strong><small className="mt-1 block text-[9px] uppercase tracking-[.18em] text-muted-foreground">Mobilya Ahşap</small></span>
       </Link>
       <nav className="hidden items-center gap-8 md:flex" aria-label="Ana navigasyon">
         {navItems.map((item) => <Link href={item.href} key={item.href} className="nav-link focus-ring text-[13px]" aria-current={location.startsWith(item.href.split('/')[1] ? `/${item.href.split('/')[1]}` : item.href) ? 'page' : undefined} data-testid={`link-nav-${item.label.toLowerCase()}`}>{item.label}</Link>)}
@@ -104,11 +104,11 @@ export function SiteHeader() {
 export function SiteFooter() {
   return <footer className="border-t hairline bg-[#e8e0d3]">
     <div className="container-wide grid gap-12 py-14 md:grid-cols-[1.2fr_.8fr_.8fr] md:py-20">
-      <div><div className="mb-5 flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-full border border-primary text-lg display text-primary">A</span><span className="text-sm font-semibold tracking-[.16em]">AHŞAP ATELIER</span></div><p className="max-w-xs text-sm leading-6 text-muted-foreground">Ölçüsü size ait, işçiliği zamana ait özel mobilyalar ve mimari ahşap işler.</p></div>
+      <div><div className="mb-5 flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-full border border-primary text-lg display text-primary">A</span><span className="text-sm font-semibold tracking-[.12em]">ASYA MOBİLYA AHŞAP</span></div><p className="max-w-xs text-sm leading-6 text-muted-foreground">Ölçüsü size ait, işçiliği zamana ait özel mobilyalar ve mimari ahşap işler.</p></div>
       <div><p className="eyebrow mb-5">Keşfet</p><div className="flex flex-col gap-3 text-sm"><Link href="/marangoz/" className="hover:text-primary" data-testid="link-footer-services">Hizmetler</Link><Link href="/hakkimizda/" className="hover:text-primary" data-testid="link-footer-about">Atölye</Link><Link href={blogPosts[0].canonical} className="hover:text-primary" data-testid="link-footer-blog">Notlar</Link></div></div>
       <div><p className="eyebrow mb-5">Temas</p><div className="flex flex-col gap-3 text-sm"><Link href="/iletisim/" className="flex items-center gap-2 hover:text-primary" data-testid="link-footer-contact"><Mail size={15} /> İletişim formu</Link><span className="text-muted-foreground">İstanbul ve çevresi · yer tutucu</span><span className="flex items-center gap-2 text-muted-foreground"><Instagram size={15} /> Sosyal kanal yer tutucu</span></div></div>
     </div>
-    <div className="container-wide flex flex-col justify-between gap-3 border-t hairline py-5 text-[11px] text-muted-foreground md:flex-row"><span>© Ahşap Atelier · İçerik yer tutucu</span><span className="font-mono uppercase tracking-[.12em]">Malzeme / ölçü / emek</span></div>
+    <div className="container-wide flex flex-col justify-between gap-3 border-t hairline py-5 text-[11px] text-muted-foreground md:flex-row"><span>© Asya Mobilya Ahşap · İçerik yer tutucu</span><span className="font-mono uppercase tracking-[.12em]">Malzeme / ölçü / emek</span></div>
   </footer>;
 }
 
