@@ -52,6 +52,7 @@ export function Seo({ title, description, canonical, path, type = 'website', rob
 
 export function MediaPlaceholder({ media, className = '' }: { media: Media; className?: string }) {
   return <div className={`placeholder-media wood-grain ${media.tone} ${className}`} role="img" aria-label={media.alt} data-testid={`media-${media.id}`}>
+    {media.src ? <img src={media.src} alt="" className="absolute inset-0 h-full w-full object-cover" /> : null}
     <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/30" />
     <div className="absolute inset-0 flex items-center justify-center">
       <span className="relative z-10 border border-white/35 px-3 py-2 text-[10px] uppercase tracking-[.18em] text-white/80" data-testid={`text-media-label-${media.id}`}>{media.label}</span>

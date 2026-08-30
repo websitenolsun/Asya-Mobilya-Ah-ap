@@ -48,7 +48,7 @@ import mobilyaTamirYenileme from './content/blog/mobilya-tamir-mi-yenileme-mi.js
 import mutfakDolabiKarari from './content/blog/mutfak-dolabi-yenileme-mi-degisimi-mi.json';
 import ozelOlcuFiyat from './content/blog/ozel-olcu-mobilya-fiyatini-belirleyen-faktorler.json';
 
-export type Media = { id: string; type: 'image' | 'video'; alt: string; label: string; tone: string; caption?: string; poster?: string; serviceSlugs: string[]; locationSlugs: string[]; projectSlugs: string[] };
+export type Media = { id: string; type: 'image' | 'video'; src?: string; alt: string; label: string; tone: string; caption?: string; poster?: string; serviceSlugs: string[]; locationSlugs: string[]; projectSlugs: string[] };
 export type Faq = { id: string; question: string; answer: string };
 export type EntitySeo = { seoTitle: string; seoDescription: string; canonical: string; faqs: Faq[]; gallery: Media[]; videos: Media[]; relatedServices: string[]; relatedLocations: string[]; relatedProjects: string[] };
 export type Service = EntitySeo & { slug: string; name: string; category: string; summary: string; detail: string; bluf: string; scope: string[]; benefits: string[]; materials: string[]; process: string[]; pricingFactors: string[]; media: Media };
@@ -58,8 +58,34 @@ export type BlogPost = EntitySeo & { slug: string; title: string; category: stri
 export type Testimonial = { id: string; quote: string; name: string; context: string };
 
 const media = (id: string, label: string, tone: string, alt: string): Media => ({ id, type: 'image', label, tone, alt, serviceSlugs: [], locationSlugs: [], projectSlugs: [] });
-const serviceMedia = (slug: string, name: string) => media(slug, name, slug, `${name} için görsel yer tutucu`);
-const blogMedia = (slug: string, title: string) => media(slug, title, slug, `${title} için görsel yer tutucu`);
+const cardImageSources: Record<string, string> = {
+  'ozel-olcu-mobilya': '/media/cards/ö.webp',
+  'mutfak-dolabi': '/media/cards/d.webp',
+  'mutfak-dolabi-yenileme': '/media/cards/d.webp',
+  'gardrop': '/media/cards/n.webp',
+  'gomme-dolap': '/media/cards/g.webp',
+  'yatak-odasi-mobilyalari': '/media/cards/u.webp',
+  'tv-unitesi': '/media/cards/a.webp',
+  'kitaplik': '/media/cards/k.webp',
+  'calisma-masasi': '/media/cards/c.webp',
+  'yemek-masasi': '/media/cards/p.webp',
+  'sehpa': '/media/cards/s.webp',
+  'ofis-mobilyalari': '/media/cards/o.webp',
+  'magaza-isletme-mobilyalari': '/media/cards/m.webp',
+  'banko-resepsiyon': '/media/cards/b.webp',
+  'ahsap-raf-sistemleri': '/media/cards/r.webp',
+  'ahsap-kapi': '/media/cards/l.webp',
+  'ahsap-merdiven': '/media/cards/ı.webp',
+  'ahsap-bolme-dekorasyon': '/media/cards/e.webp',
+  'mobilya-tamiri': '/media/cards/t.webp',
+  'mobilya-tadilati': '/media/cards/ş.webp',
+  'dolap-kapak-degisimi': '/media/cards/f.webp',
+  'mentese-ray-aksesuar-degisimi': '/media/cards/h.webp',
+  'hasarli-mobilya-onarimi': '/media/cards/i.webp',
+  'eski-mobilya-yenileme': '/media/cards/j.webp',
+};
+const serviceMedia = (slug: string, name: string) => ({ ...media(slug, name, slug, `${name} için görsel yer tutucu`), src: cardImageSources[slug] });
+const blogMedia = (slug: string, title: string) => ({ ...media(slug, title, slug, `${title} için görsel yer tutucu`), src: cardImageSources[slug] });
 
 const serviceContent = [ozelOlcuMobilya, mutfakDolabi, mutfakDolabiYenileme, gardrop, gommeDolap, yatakOdasiMobilyalari, tvUnitesi, kitaplik, calismaMasasi, yemekMasasi, sehpa, ofisMobilyalari, magazaIsletmeMobilyalari, bankoResepsiyon, ahsapRafSistemleri, ahsapKapi, ahsapMerdiven, ahsapBolmeDekorasyon, mobilyaTamiri, mobilyaTadilati, dolapKapakDegisimi, menteseRayAksesuarDegisimi, hasarliMobilyaOnarimi, eskiMobilyaYenileme];
 export const services: Service[] = serviceContent.map((item) => ({ ...item, name: item.title, summary: item.bluf, detail: item.description, media: serviceMedia(item.slug, item.title) }));
