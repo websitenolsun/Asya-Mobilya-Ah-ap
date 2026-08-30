@@ -19,9 +19,10 @@ build = [ "pnpm", "--filter", "@workspace/ahsap-atelier", "run", "build" ]
 serve = "static"
 publicDir = "artifacts/ahsap-atelier/dist/public"
 
-[[services.production.rewrites]]
-from = "/*"
-to = "/index.html"
+[services.production.env]
+PORT = "24084"
+BASE_PATH = "/"
+
 
 [services.env]
 PORT = "24084"

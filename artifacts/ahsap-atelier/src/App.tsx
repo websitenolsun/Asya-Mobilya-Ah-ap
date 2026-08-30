@@ -11,19 +11,12 @@ function Router() {
   return <RoutedErrorBoundary><Switch>
     <Route path="/" component={Home} />
     <Route path="/marangoz/" component={ServicesHub} />
-    <Route path="/marangoz" component={ServicesHub} />
     <Route path="/hizmetler/:slug/" component={ServiceDetail} />
-    <Route path="/hizmetler/:slug" component={ServiceDetail} />
-    <Route path="/hizmet-bolgeleri/:slug/" component={LocationDetail} />
-    <Route path="/hizmet-bolgeleri/:slug" component={LocationDetail} />
+    <Route path="/hizmet-bolgeleri/:slug-marangoz/" component={LocationDetail} />
     <Route path="/projeler/:slug/" component={ProjectDetail} />
-    <Route path="/projeler/:slug" component={ProjectDetail} />
     <Route path="/blog/:slug/" component={BlogDetail} />
-    <Route path="/blog/:slug" component={BlogDetail} />
     <Route path="/hakkimizda/" component={About} />
-    <Route path="/hakkimizda" component={About} />
     <Route path="/iletisim/" component={Contact} />
-    <Route path="/iletisim" component={Contact} />
     <Route component={() => <MissingState label="Sayfa bulunamadı" />} />
   </Switch></RoutedErrorBoundary>;
 }

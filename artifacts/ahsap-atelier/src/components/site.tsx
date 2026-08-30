@@ -1,11 +1,28 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { ArrowUpRight, ChevronRight, Instagram, Mail, Menu, Plus, X } from 'lucide-react';
 import { Link, useLocation } from 'wouter';
-import { faqs, type BlogPost, type Location, type Media, type Project, type Service } from '@/data';
+import { blogPosts, faqs, SITE_ORIGIN, type BlogPost, type Location, type Media, type Project, type Service } from '@/data';
 
-export function Seo({ title, description, path = '/', type = 'website', jsonLd }: { title: string; description: string; path?: string; type?: string; jsonLd?: Record<string, unknown> }) {
+export type Crumb = { label: string; href?: string };
+
+export function breadcrumbSchema(path: string, items: Crumb[]) {
+  return {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [{ label: 'Ana sayfa', href: '/' }, ...items].map((item, index) => ({
+      '@type': 'ListItem', position: index + 1, name: item.label, item: index === items.length ? undefined : item.href,
+    })),
+  };
+}
+
+export function Seo({ title, description, canonical, path, type = 'website', robots = 'index,follow', jsonLd = [] }: { title: string; description: string; canonical?: string; path?: string; type?: string; robots?: string; jsonLd?: Record<string, unknown>[] }) {
+  const route = canonical ?? path ?? '/';
+  const inferredSchema = route.startsWith('/projeler/') ? { '@context': 'https://schema.org', '@type': 'CreativeWork', name: title, description }
+    : route.startsWith('/blog/') ? { '@context': 'https://schema.org', '@type': 'Article', headline: title, description }
+      : route.startsWith('/hizmetler/') ? { '@context': 'https://schema.org', '@type': 'Service', name: title, description }
+        : undefined;
+  const schemas = jsonLd.length ? jsonLd : (inferredSchema ? [inferredSchema] : []);
   useEffect(() => {
-    const origin = window.location.origin;
+    const origin = SITE_ORIGIN;
     document.title = `${title} — Ahşap Atelier`;
     const setMeta = (name: string, content: string, property = false) => {
       const attr = property ? 'property' : 'name';
@@ -14,22 +31,22 @@ export function Seo({ title, description, path = '/', type = 'website', jsonLd }
       tag.setAttribute('content', content);
     };
     setMeta('description', description);
-    setMeta('robots', 'index,follow');
+    setMeta('robots', robots);
     setMeta('og:title', title, true);
     setMeta('og:description', description, true);
     setMeta('og:type', type, true);
-    setMeta('og:url', `${origin}${path}`, true);
+    setMeta('og:url', `${origin}${route}`, true);
     let canonical = document.head.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical); }
-    canonical.href = `${origin}${path}`;
+    canonical.href = `${origin}${route}`;
     const old = document.head.querySelector('script[data-seo-jsonld]');
     old?.remove();
     const script = document.createElement('script');
     script.type = 'application/ld+json'; script.dataset.seoJsonld = 'true';
-    script.text = JSON.stringify(jsonLd ?? { '@context': 'https://schema.org', '@type': 'Organization', name: 'Ahşap Atelier', description, url: origin });
+    script.text = JSON.stringify({ '@context': 'https://schema.org', '@graph': schemas });
     document.head.appendChild(script);
     return () => { script.remove(); };
-  }, [description, jsonLd, path, title, type]);
+  }, [description, robots, route, schemas, title, type]);
   return null;
 }
 
@@ -42,7 +59,7 @@ export function MediaPlaceholder({ media, className = '' }: { media: Media; clas
   </div>;
 }
 
-export function Breadcrumbs({ items }: { items: { label: string; href?: string }[] }) {
+export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return <nav aria-label="Sayfa yolu" className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground" data-testid="breadcrumb-nav">
     <Link href="/" className="transition-colors hover:text-foreground focus-ring" data-testid="link-breadcrumb-home">Ana sayfa</Link>
     {items.map((item, index) => <span className="flex items-center gap-2" key={`${item.label}-${index}`}>
@@ -54,9 +71,8 @@ export function Breadcrumbs({ items }: { items: { label: string; href?: string }
 
 const navItems = [
   { href: '/marangoz/', label: 'Hizmetler' },
-  { href: '/projeler/sessiz-koridor/', label: 'Projeler' },
   { href: '/hakkimizda/', label: 'Atölye' },
-  { href: '/blog/olcu-alma-rehberi/', label: 'Notlar' },
+  { href: blogPosts[0].canonical, label: 'Notlar' },
 ];
 
 export function SiteHeader() {
@@ -89,7 +105,7 @@ export function SiteFooter() {
   return <footer className="border-t hairline bg-[#e8e0d3]">
     <div className="container-wide grid gap-12 py-14 md:grid-cols-[1.2fr_.8fr_.8fr] md:py-20">
       <div><div className="mb-5 flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-full border border-primary text-lg display text-primary">A</span><span className="text-sm font-semibold tracking-[.16em]">AHŞAP ATELIER</span></div><p className="max-w-xs text-sm leading-6 text-muted-foreground">Ölçüsü size ait, işçiliği zamana ait özel mobilyalar ve mimari ahşap işler.</p></div>
-      <div><p className="eyebrow mb-5">Keşfet</p><div className="flex flex-col gap-3 text-sm"><Link href="/marangoz/" className="hover:text-primary" data-testid="link-footer-services">Hizmetler</Link><Link href="/projeler/sessiz-koridor/" className="hover:text-primary" data-testid="link-footer-projects">Projeler</Link><Link href="/hakkimizda/" className="hover:text-primary" data-testid="link-footer-about">Atölye</Link><Link href="/blog/olcu-alma-rehberi/" className="hover:text-primary" data-testid="link-footer-blog">Notlar</Link></div></div>
+      <div><p className="eyebrow mb-5">Keşfet</p><div className="flex flex-col gap-3 text-sm"><Link href="/marangoz/" className="hover:text-primary" data-testid="link-footer-services">Hizmetler</Link><Link href="/hakkimizda/" className="hover:text-primary" data-testid="link-footer-about">Atölye</Link><Link href={blogPosts[0].canonical} className="hover:text-primary" data-testid="link-footer-blog">Notlar</Link></div></div>
       <div><p className="eyebrow mb-5">Temas</p><div className="flex flex-col gap-3 text-sm"><Link href="/iletisim/" className="flex items-center gap-2 hover:text-primary" data-testid="link-footer-contact"><Mail size={15} /> İletişim formu</Link><span className="text-muted-foreground">İstanbul ve çevresi · yer tutucu</span><span className="flex items-center gap-2 text-muted-foreground"><Instagram size={15} /> Sosyal kanal yer tutucu</span></div></div>
     </div>
     <div className="container-wide flex flex-col justify-between gap-3 border-t hairline py-5 text-[11px] text-muted-foreground md:flex-row"><span>© Ahşap Atelier · İçerik yer tutucu</span><span className="font-mono uppercase tracking-[.12em]">Malzeme / ölçü / emek</span></div>
@@ -123,7 +139,7 @@ export function LocationCard({ item }: { item: Location }) {
   return <Link href={`/hizmet-bolgeleri/${item.slug}-marangoz/`} className="group flex items-center justify-between border-b hairline py-5 focus-ring" data-testid={`card-location-${item.slug}`}><div><p className="eyebrow">{item.region}</p><h3 className="display mt-1 text-3xl">{item.name}</h3><p className="mt-1 max-w-sm text-xs text-muted-foreground">{item.summary}</p></div><ArrowUpRight size={19} className="text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" /></Link>;
 }
 
-export function FaqList() {
+export function FaqList({ items = faqs }: { items?: typeof faqs }) {
   const [active, setActive] = useState<string | null>(null);
-  return <div className="divide-y hairline" data-testid="faq-list">{faqs.map((faq) => <div key={faq.id}><button className="focus-ring flex w-full items-center justify-between gap-4 py-5 text-left" onClick={() => setActive(active === faq.id ? null : faq.id)} aria-expanded={active === faq.id} data-testid={`button-faq-${faq.id}`}><span className="text-sm font-medium md:text-base">{faq.question}</span><Plus size={18} className={`shrink-0 transition-transform ${active === faq.id ? 'rotate-45' : ''}`} /></button><div className="accordion-content" data-open={active === faq.id}><div><p className="max-w-2xl pb-5 pr-8 text-sm leading-6 text-muted-foreground">{faq.answer}</p></div></div></div>)}</div>;
+  return <div className="divide-y hairline" data-testid="faq-list">{items.map((faq) => <div key={faq.id}><button className="focus-ring flex w-full items-center justify-between gap-4 py-5 text-left" onClick={() => setActive(active === faq.id ? null : faq.id)} aria-expanded={active === faq.id} data-testid={`button-faq-${faq.id}`}><span className="text-sm font-medium md:text-base">{faq.question}</span><Plus size={18} className={`shrink-0 transition-transform ${active === faq.id ? 'rotate-45' : ''}`} /></button><div className="accordion-content" data-open={active === faq.id}><div><p className="max-w-2xl pb-5 pr-8 text-sm leading-6 text-muted-foreground">{faq.answer}</p></div></div></div>)}</div>;
 }
