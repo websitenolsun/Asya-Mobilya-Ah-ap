@@ -30,7 +30,7 @@ function Home() {
       <div className="relative z-10 reveal"><p className="eyebrow mb-6">İstanbul · ölçüye göre üretim</p><h1 className="display max-w-xl text-[clamp(3.8rem,8vw,7.7rem)] leading-[.88]">Mekâna<br /><em className="text-primary">yer açan</em><br />ahşap.</h1><p className="mt-8 max-w-md text-base leading-7 text-muted-foreground md:text-lg">Eviniz için düşünülmüş özel mobilyalar, mimari ahşap işler ve atölye titizliğinde bir üretim süreci.</p><div className="mt-9 flex flex-wrap gap-3"><Link href="/iletisim/" className="btn-primary focus-ring" data-testid="link-hero-contact">Projenizi anlatın <ArrowUpRight size={16} /></Link><Link href="/marangoz/" className="btn-quiet focus-ring" data-testid="link-hero-services">Hizmetleri keşfedin</Link></div></div>
       <div className="relative reveal reveal-delay-2">
         <div className="hero-visual placeholder-media aspect-[.82] w-full md:aspect-[.9]">
-          <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(/media/projects/stair-01.jpg)' }} />
+          <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(/media/hero/stairs.webp)' }} />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_28%,rgba(246,216,166,.45),transparent_28%),linear-gradient(145deg,transparent_40%,rgba(23,18,15,.42))]" />
           <div className="absolute bottom-7 left-7 max-w-[220px] border-l border-white/45 pl-4 text-xs leading-5 text-white/80">Gerçek proje görselleri ve atölye hikâyesi burada yer alacak.</div>
           <span className="absolute right-5 top-5 font-mono text-[10px] tracking-[.15em] text-white/70">AA / 001</span>
