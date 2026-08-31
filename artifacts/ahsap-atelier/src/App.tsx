@@ -13,7 +13,7 @@ function Router() {
     <Route path="/marangoz/" component={ServicesHub} />
     <Route path="/blog/" component={BlogIndex} />
     <Route path="/hizmetler/:slug/" component={ServiceDetail} />
-    <Route path="/hizmet-bolgeleri/:slug-marangoz/" component={LocationDetail} />
+    <Route path="/hizmet-bolgeleri/:slug/" component={LocationDetail} />
     <Route path="/projeler/:slug/" component={ProjectDetail} />
     <Route path="/blog/:slug/" component={BlogDetail} />
     <Route path="/hakkimizda/" component={About} />
