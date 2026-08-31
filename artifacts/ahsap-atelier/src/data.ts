@@ -84,8 +84,9 @@ const cardImageSources: Record<string, string> = {
   'hasarli-mobilya-onarimi': '/media/cards/i.webp',
   'eski-mobilya-yenileme': '/media/cards/j.webp',
 };
-const serviceMedia = (slug: string, name: string) => ({ ...media(slug, name, slug, `${name} için görsel yer tutucu`), src: cardImageSources[slug] });
-const blogMedia = (slug: string, title: string) => ({ ...media(slug, title, slug, `${title} için görsel yer tutucu`), src: cardImageSources[slug] });
+const serviceMedia = (slug: string, name: string) => ({ ...media(slug, name, slug, name), src: cardImageSources[slug] });
+// Use a shared blog note image; the uploaded image is at /public/media/blog/notlar-image.webp
+const blogMedia = (slug: string, title: string) => ({ ...media(slug, title, slug, title), src: '/media/blog/notlar-image.webp' });
 
 const serviceContent = [ozelOlcuMobilya, mutfakDolabi, mutfakDolabiYenileme, gardrop, gommeDolap, yatakOdasiMobilyalari, tvUnitesi, kitaplik, calismaMasasi, yemekMasasi, sehpa, ofisMobilyalari, magazaIsletmeMobilyalari, bankoResepsiyon, ahsapRafSistemleri, ahsapKapi, ahsapMerdiven, ahsapBolmeDekorasyon, mobilyaTamiri, mobilyaTadilati, dolapKapakDegisimi, menteseRayAksesuarDegisimi, hasarliMobilyaOnarimi, eskiMobilyaYenileme];
 export const services: Service[] = serviceContent.map((item) => ({ ...item, name: item.title, summary: item.bluf, detail: item.description, media: serviceMedia(item.slug, item.title) }));

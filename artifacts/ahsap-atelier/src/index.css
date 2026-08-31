@@ -116,12 +116,8 @@
   overflow: hidden;
 }
 .placeholder-media::after {
-  content: 'GÖRSEL YER TUTUCU';
-  position: absolute;
-  inset: auto 16px 14px auto;
-  color: rgba(255, 247, 232, .74);
-  font: 500 .58rem/1 var(--app-font-mono);
-  letter-spacing: .1em;
+  /* placeholder text removed intentionally */
+  content: '';
 }
 .placeholder-media::before {
   content: '';

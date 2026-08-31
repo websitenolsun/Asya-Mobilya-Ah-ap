@@ -54,9 +54,6 @@ export function MediaPlaceholder({ media, className = '' }: { media: Media; clas
   return <div className={`placeholder-media wood-grain ${media.tone} ${className}`} role="img" aria-label={media.alt} data-testid={`media-${media.id}`}>
     {media.src ? <img src={media.src} alt="" className="absolute inset-0 h-full w-full object-cover" /> : null}
     <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/30" />
-    <div className="absolute inset-0 flex items-center justify-center">
-      <span className="relative z-10 border border-white/35 px-3 py-2 text-[10px] uppercase tracking-[.18em] text-white/80" data-testid={`text-media-label-${media.id}`}>{media.label}</span>
-    </div>
   </div>;
 }
 
@@ -73,7 +70,7 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
 const navItems = [
   { href: '/marangoz/', label: 'Hizmetler' },
   { href: '/hakkimizda/', label: 'Atölye' },
-  { href: blogPosts[0].canonical, label: 'Notlar' },
+  { href: '/blog/', label: 'Notlar' },
 ];
 
 export function SiteHeader() {
@@ -88,6 +85,7 @@ export function SiteHeader() {
       <nav className="hidden items-center gap-8 md:flex" aria-label="Ana navigasyon">
         {navItems.map((item) => <Link href={item.href} key={item.href} className="nav-link focus-ring text-[13px]" aria-current={location.startsWith(item.href.split('/')[1] ? `/${item.href.split('/')[1]}` : item.href) ? 'page' : undefined} data-testid={`link-nav-${item.label.toLowerCase()}`}>{item.label}</Link>)}
       </nav>
+      <Link href="/blog/" className="hover:text-primary" data-testid="link-footer-blog">Notlar</Link>
       <Link href="/iletisim/" className="btn-primary hidden min-h-[40px] px-4 text-xs md:inline-flex" data-testid="link-header-contact">Bir proje konuşalım <ArrowUpRight size={15} /></Link>
       <button className="focus-ring flex h-10 w-10 items-center justify-center md:hidden" onClick={() => setOpen(!open)} aria-label={open ? 'Menüyü kapat' : 'Menüyü aç'} aria-expanded={open} data-testid="button-mobile-menu">
         {open ? <X size={21} /> : <Menu size={21} />}
@@ -106,7 +104,7 @@ export function SiteFooter() {
   return <footer className="border-t hairline bg-[#e8e0d3]">
     <div className="container-wide grid gap-12 py-14 md:grid-cols-[1.2fr_.8fr_.8fr] md:py-20">
       <div><div className="mb-5 flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-full border border-primary text-lg display text-primary">A</span><span className="text-sm font-semibold tracking-[.12em]">ASYA MOBİLYA AHŞAP</span></div><p className="max-w-xs text-sm leading-6 text-muted-foreground">Ölçüsü size ait, işçiliği zamana ait özel mobilyalar ve mimari ahşap işler.</p></div>
-      <div><p className="eyebrow mb-5">Keşfet</p><div className="flex flex-col gap-3 text-sm"><Link href="/marangoz/" className="hover:text-primary" data-testid="link-footer-services">Hizmetler</Link><Link href="/hakkimizda/" className="hover:text-primary" data-testid="link-footer-about">Atölye</Link><Link href={blogPosts[0].canonical} className="hover:text-primary" data-testid="link-footer-blog">Notlar</Link></div></div>
+      <div><p className="eyebrow mb-5">Keşfet</p><div className="flex flex-col gap-3 text-sm"><Link href="/marangoz/" className="hover:text-primary" data-testid="link-footer-services">Hizmetler</Link><Link href="/hakkimizda/" className="hover:text-primary" data-testid="link-footer-about">Atölye</Link><Link href="/blog/" className="hover:text-primary" data-testid="link-footer-blog">Notlar</Link></div></div>
       <div><p className="eyebrow mb-5">Temas</p><div className="flex flex-col gap-3 text-sm"><Link href="/iletisim/" className="flex items-center gap-2 hover:text-primary" data-testid="link-footer-contact"><Mail size={15} /> İletişim formu</Link><span className="text-muted-foreground">İstanbul ve çevresi · yer tutucu</span><span className="flex items-center gap-2 text-muted-foreground"><Instagram size={15} /> Sosyal kanal yer tutucu</span></div></div>
     </div>
     <div className="container-wide flex flex-col justify-between gap-3 border-t hairline py-5 text-[11px] text-muted-foreground md:flex-row"><span>© Asya Mobilya Ahşap · İçerik yer tutucu</span><span className="font-mono uppercase tracking-[.12em]">Malzeme / ölçü / emek</span></div>
@@ -114,6 +112,17 @@ export function SiteFooter() {
 }
 
 export function Shell({ children }: { children: ReactNode }) {
+  const [location] = useLocation();
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      } catch (e) {
+        window.scrollTo(0, 0);
+      }
+    }
+  }, [location]);
+
   return <div className="site-shell"><SiteHeader /><main>{children}</main><SiteFooter /></div>;
 }
 
