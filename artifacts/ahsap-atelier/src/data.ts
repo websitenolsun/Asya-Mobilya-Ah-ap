@@ -53,7 +53,7 @@ export type Faq = { id: string; question: string; answer: string };
 export type EntitySeo = { seoTitle: string; seoDescription: string; canonical: string; faqs: Faq[]; gallery: Media[]; videos: Media[]; relatedServices: string[]; relatedLocations: string[]; relatedProjects: string[] };
 export type Service = EntitySeo & { slug: string; name: string; category: string; summary: string; detail: string; bluf: string; scope: string[]; benefits: string[]; materials: string[]; process: string[]; pricingFactors: string[]; media: Media };
 export type Location = EntitySeo & { slug: string; name: string; region: string; summary: string; focus: string[]; neighborhoods: string[] };
-export type Project = EntitySeo & { slug: string; name: string; type: string; year: string; summary: string; materials: string[]; media: Media; challenge?: string; solution?: string; dimensions?: string; beforeImages: Media[]; afterImages: Media[]; duration?: string; result?: string };
+export type Project = EntitySeo & { slug: string; name: string; type: string; year: string; summary: string; materials: string[]; media: Media; challenge?: string; solution?: string; dimensions?: string; beforeImages: Media[]; afterImages: Media[]; duration?: string; result?: string; locationLabel?: string };
 export type BlogPost = EntitySeo & { slug: string; title: string; category: string; date: string; readingTime: string; excerpt: string; body: string[]; media: Media };
 export type Testimonial = { id: string; quote: string; name: string; context: string };
 

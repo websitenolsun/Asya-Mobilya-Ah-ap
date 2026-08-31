@@ -77,19 +77,24 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [location] = useLocation();
   return <header className="relative z-40 border-b hairline bg-background/90 backdrop-blur-md">
-    <div className="container-wide flex h-[76px] items-center justify-between">
-      <Link href="/" className="focus-ring flex items-center gap-3" onClick={() => setOpen(false)} data-testid="link-logo">
-        <span className="flex h-9 w-9 items-center justify-center rounded-full border border-primary text-lg display text-primary">A</span>
-        <span><strong className="block text-[15px] leading-none tracking-[.02em]">ASYA</strong><small className="mt-1 block text-[9px] uppercase tracking-[.18em] text-muted-foreground">Mobilya Ahşap</small></span>
-      </Link>
-      <nav className="hidden items-center gap-8 md:flex" aria-label="Ana navigasyon">
+    <div className="container-wide flex h-[76px] items-center">
+      <div className="flex items-center gap-3">
+        <Link href="/" className="focus-ring flex items-center gap-3" onClick={() => setOpen(false)} data-testid="link-logo">
+          <img src="/media/logo/logo.webp" alt="Asya Mobilya Ahşap" className="h-9 w-9 rounded-full border object-cover" />
+          <span className="hidden md:block"><strong className="block text-[15px] leading-none tracking-[.02em]">ASYA</strong><small className="mt-1 block text-[9px] uppercase tracking-[.18em] text-muted-foreground">Mobilya Ahşap</small></span>
+        </Link>
+      </div>
+
+      <nav className="hidden md:flex items-center gap-8 flex-1 justify-center" aria-label="Ana navigasyon">
         {navItems.map((item) => <Link href={item.href} key={item.href} className="nav-link focus-ring text-[13px]" aria-current={location.startsWith(item.href.split('/')[1] ? `/${item.href.split('/')[1]}` : item.href) ? 'page' : undefined} data-testid={`link-nav-${item.label.toLowerCase()}`}>{item.label}</Link>)}
       </nav>
-      <Link href="/blog/" className="hover:text-primary" data-testid="link-footer-blog">Notlar</Link>
-      <Link href="/iletisim/" className="btn-primary hidden min-h-[40px] px-4 text-xs md:inline-flex" data-testid="link-header-contact">Bir proje konuşalım <ArrowUpRight size={15} /></Link>
-      <button className="focus-ring flex h-10 w-10 items-center justify-center md:hidden" onClick={() => setOpen(!open)} aria-label={open ? 'Menüyü kapat' : 'Menüyü aç'} aria-expanded={open} data-testid="button-mobile-menu">
-        {open ? <X size={21} /> : <Menu size={21} />}
-      </button>
+
+      <div className="flex items-center gap-3 ml-auto">
+        <Link href="/iletisim/" className="btn-primary hidden min-h-[40px] px-4 text-xs md:inline-flex" data-testid="link-header-contact">Bir proje konuşalım <ArrowUpRight size={15} /></Link>
+        <button className="focus-ring flex h-10 w-10 items-center justify-center md:hidden" onClick={() => setOpen(!open)} aria-label={open ? 'Menüyü kapat' : 'Menüyü aç'} aria-expanded={open} data-testid="button-mobile-menu">
+          {open ? <X size={21} /> : <Menu size={21} />}
+        </button>
+      </div>
     </div>
     {open && <div className="border-t hairline bg-background px-5 py-5 md:hidden">
       <nav className="container-wide flex flex-col gap-1" aria-label="Mobil navigasyon">
@@ -103,7 +108,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return <footer className="border-t hairline bg-[#e8e0d3]">
     <div className="container-wide grid gap-12 py-14 md:grid-cols-[1.2fr_.8fr_.8fr] md:py-20">
-      <div><div className="mb-5 flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-full border border-primary text-lg display text-primary">A</span><span className="text-sm font-semibold tracking-[.12em]">ASYA MOBİLYA AHŞAP</span></div><p className="max-w-xs text-sm leading-6 text-muted-foreground">Ölçüsü size ait, işçiliği zamana ait özel mobilyalar ve mimari ahşap işler.</p></div>
+      <div><div className="mb-5 flex items-center gap-3"><img src="/media/logo/logo.webp" alt="Asya Mobilya Ahşap" className="h-9 w-9 rounded-full border object-cover" /><span className="text-sm font-semibold tracking-[.12em]">ASYA MOBİLYA AHŞAP</span></div><p className="max-w-xs text-sm leading-6 text-muted-foreground">Ölçüsü size ait, işçiliği zamana ait özel mobilyalar ve mimari ahşap işler.</p></div>
       <div><p className="eyebrow mb-5">Keşfet</p><div className="flex flex-col gap-3 text-sm"><Link href="/marangoz/" className="hover:text-primary" data-testid="link-footer-services">Hizmetler</Link><Link href="/hakkimizda/" className="hover:text-primary" data-testid="link-footer-about">Atölye</Link><Link href="/blog/" className="hover:text-primary" data-testid="link-footer-blog">Notlar</Link></div></div>
       <div><p className="eyebrow mb-5">Temas</p><div className="flex flex-col gap-3 text-sm"><Link href="/iletisim/" className="flex items-center gap-2 hover:text-primary" data-testid="link-footer-contact"><Mail size={15} /> İletişim formu</Link><span className="text-muted-foreground">İstanbul ve çevresi · yer tutucu</span><span className="flex items-center gap-2 text-muted-foreground"><Instagram size={15} /> Sosyal kanal yer tutucu</span></div></div>
     </div>
