@@ -1,21 +1,21 @@
 {
   "slug": "kadikoy",
-  "title": "Kadıköy marangoz hizmetleri",
-  "seoTitle": "Kadıköy Marangoz | Özel Ölçü Mobilya ve Ahşap İşleri",
-  "seoDescription": "Kadıköy için hizmet sayfalarında kullanılacak lokal içerik; yapı tipi, alan ölçüleri ve kullanım ihtiyaçları üzerinden özgünleştirilecek.",
+  "title": "Kağıthane marangoz hizmetleri",
+  "seoTitle": "Kağıthane Marangoz | Özel Ölçü Mobilya ve Ahşap İşleri",
+  "seoDescription": "Kağıthane için hizmet sayfalarında kullanılacak lokal içerik; yapı tipi, alan ölçüleri ve kullanım ihtiyaçları üzerinden özgünleştirilecek.",
   "canonical": "/hizmet-bolgeleri/kadikoy-marangoz/",
-  "summary": "Kadıköy için hizmet sayfalarında kullanılacak lokal içerik; yapı tipi, alan ölçüleri ve kullanım ihtiyaçları üzerinden özgünleştirilecek.",
+  "summary": "Kağıthane için hizmet sayfalarında kullanılacak lokal içerik; yapı tipi, alan ölçüleri ve kullanım ihtiyaçları üzerinden özgünleştirilecek.",
   "focus": [
     "Mutfak ve depolama çözümleri",
     "Kitaplık ve sabit mobilya",
     "Yerinde ölçü ve keşif"
   ],
   "neighborhoods": [
-    "Caddebostan",
-    "Erenköy",
-    "Fenerbahçe",
-    "Koşuyolu",
-    "Acıbadem"
+    "Kağıthane Merkez",
+    "Çağlayan",
+    "Hürriyet",
+    "Gürsel",
+    "Şenlik"
   ],
   "services": [
     "ozel-olcu-mobilya",
@@ -48,12 +48,12 @@
   "faqs": [
     {
       "id": "f1",
-      "question": "Kadıköy bölgesinde hangi marangozluk hizmetleri için iletişime geçilebilir?",
+      "question": "Kağıthane bölgesinde hangi marangozluk hizmetleri için iletişime geçilebilir?",
       "answer": "İhtiyaca göre özel ölçü mobilya, sabit mobilya, mutfak ve dolap çözümleri, ahşap uygulamalar ve yenileme işleri değerlendirilir."
     },
     {
       "id": "f2",
-      "question": "Kadıköy için ölçü ve keşif nasıl planlanır?",
+      "question": "Kağıthane için ölçü ve keşif nasıl planlanır?",
       "answer": "Uygulamanın türüne ve mevcut alanın durumuna göre ölçü ve keşif kapsamı belirlenir."
     }
   ],
