@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
-import { About, BlogDetail, BlogIndex, Contact, Home, LocationDetail, MissingState, ProjectDetail, ServiceDetail, ServicesHub } from '@/pages';
+import { About, BlogDetail, BlogIndex, Contact, Home, LocationDetail, LocationsHub, MissingState, ProjectDetail, ServiceDetail, ServicesHub } from '@/pages';
 
 const queryClient = new QueryClient();
 
@@ -13,6 +13,7 @@ function Router() {
     <Route path="/marangoz/" component={ServicesHub} />
     <Route path="/blog/" component={BlogIndex} />
     <Route path="/hizmetler/:slug/" component={ServiceDetail} />
+    <Route path="/hizmet-bolgeleri/" component={LocationsHub} />
     <Route path="/hizmet-bolgeleri/:slug/" component={LocationDetail} />
     <Route path="/projeler/:slug/" component={ProjectDetail} />
     <Route path="/blog/:slug/" component={BlogDetail} />
